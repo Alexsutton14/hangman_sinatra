@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <title>Hangman</title>
+    </head>
+    <body>
+        <p>
+        <%= flash_message %>
+        <br>
+        <%= unplayed_letters %>
+        <br>
+        <%= alphabet %>
+        </p>
+        <p>
+        <%= word %>
+        </p>
+        <% unplayed_letters.each_with_index do|item, index|%>
+            <% if item != ""%>
+            <a href="/?choice=<%=index%>"><%= item %></a>
+            <%else%>
+            <a><%=alphabet[index]%></a>
+            <%end%>
+        <% end %>
+        <div>
+        <a href="/?reset=true">Reset</a>
+        </div>
+    </body>
+</html>
