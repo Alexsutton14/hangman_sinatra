@@ -8,18 +8,22 @@
         <br>
         <%= unplayed_letters %>
         <br>
-        <%= word_letters %>
+        <%= played_letters %>
         </p>
         <div>
         <p>
         <%= word %>
         <br>
         <% word_letters.each do |word_letter|%>
-            <% match = false %>
-            <% unplayed_letters.each do |unplayed| %>
-                <% if word_letter == unplayed %>
-                    <span><%= "_" %></span>
+            <% match = false%>
+            <% played_letters.each do |played| %>
+                <% if word_letter == played %>
+                    <span><%= word_letter %></span>
+                    <% match = true%>
                 <% end %>
+            <% end %>
+            <% if !match %>
+                <span><%= "_" %></span>
             <% end %>
         <% end %>
         </p>
