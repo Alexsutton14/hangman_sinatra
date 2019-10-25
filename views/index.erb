@@ -7,25 +7,12 @@
         <%= flash_message %>
         <br>
         <%= unplayed_letters %>
-        <br>
-        <%= played_letters %>
         </p>
         <div>
         <p>
         <%= word %>
         <br>
-        <% word_letters.each do |word_letter|%>
-            <% match = false%>
-            <% played_letters.each do |played| %>
-                <% if word_letter == played %>
-                    <span><%= word_letter %></span>
-                    <% match = true%>
-                <% end %>
-            <% end %>
-            <% if !match %>
-                <span><%= "_" %></span>
-            <% end %>
-        <% end %>
+        <%= game_string %>
         </p>
         </div>
         <div>

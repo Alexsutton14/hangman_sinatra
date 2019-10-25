@@ -7,14 +7,17 @@ end
 
 flash_message = ""
 
-ALPHABET = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+ALPHABET = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 
 def generate_alphabet()
-    return ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
+    return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 end
 
 WORDS = [
-    "hangman"
+    "HANGMAN",
+    "BONNIE",
+    "PENNY",
+    "TEST-STRING"
 ]
 
 def new_word()
@@ -24,6 +27,28 @@ end
 def remove_choice(input_unplayed_array, choice_index)
     input_unplayed_array[choice_index] = ""
     return input_unplayed_array
+end
+
+def make_game_string(input_word, input_unplayed_array)
+    letters = input_word.split("")
+    output = ""
+    letters.each_with_index do |word_letter, index|
+        match = false
+        input_unplayed_array.each do |unplayed_letter|
+            if word_letter == unplayed_letter
+                match = true
+            end
+        end
+        if match
+            output += "_"
+        else
+            output += word_letter
+        end
+        if index != letters.length-1
+            output += " "
+        end
+    end
+    return output
 end
 
 get "/" do
@@ -46,8 +71,7 @@ get "/" do
         session["unplayed_letters"] = remove_choice(session["unplayed_letters"], choice_index)
         session["played_letters"] << ALPHABET[choice_index]
     end
-    word_letters = session["word"].split("")
+    game_string = make_game_string(session["word"], session["unplayed_letters"])
     erb :index, :locals => {:word => session["word"], :unplayed_letters => session["unplayed_letters"], 
-        :alphabet => ALPHABET, :flash_message => flash_message,:word_letters => word_letters, 
-        :played_letters => session["played_letters"]}
+        :alphabet => ALPHABET, :flash_message => flash_message,:game_string => game_string}
 end
