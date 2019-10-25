@@ -55,21 +55,17 @@ get "/" do
     if params["reset"] == "true"
         session["word"] = new_word()
         session["unplayed_letters"] = generate_alphabet
-        session["played_letters"] = []
     end
     if !session["word"]
         session["word"] = new_word()
         session["unplayed_letters"] = generate_alphabet
-        session["played_letters"] = []
     end
     if !session["unplayed_letters"]
         session["unplayed_letters"] = generate_alphabet
-        session["played_letters"] = []
     end
     if params["choice"]
         choice_index = params["choice"].to_i
         session["unplayed_letters"] = remove_choice(session["unplayed_letters"], choice_index)
-        session["played_letters"] << ALPHABET[choice_index]
     end
     game_string = make_game_string(session["word"], session["unplayed_letters"])
     erb :index, :locals => {:word => session["word"], :unplayed_letters => session["unplayed_letters"], 
