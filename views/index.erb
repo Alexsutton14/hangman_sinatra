@@ -8,11 +8,23 @@
         <br>
         <%= unplayed_letters %>
         <br>
-        <%= alphabet %>
+        <%= word_letters %>
         </p>
+        <div>
         <p>
         <%= word %>
+        <br>
+        <% word_letters.each do |word_letter|%>
+            <% match = false %>
+            <% unplayed_letters.each do |unplayed| %>
+                <% if word_letter == unplayed %>
+                    <span><%= "_" %></span>
+                <% end %>
+            <% end %>
+        <% end %>
         </p>
+        </div>
+        <div>
         <% unplayed_letters.each_with_index do|item, index|%>
             <% if item != ""%>
             <a href="/?choice=<%=index%>"><%= item %></a>
@@ -20,6 +32,7 @@
             <a><%=alphabet[index]%></a>
             <%end%>
         <% end %>
+        </div>
         <div>
         <a href="/?reset=true">Reset</a>
         </div>
