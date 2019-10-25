@@ -5,9 +5,8 @@ configure do
     enable :sessions
 end
 
-flash_message = ""
-
 ALPHABET = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+starting_lives = 7
 
 def generate_alphabet()
     return ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -51,23 +50,37 @@ def make_game_string(input_word, input_unplayed_array)
     return output
 end
 
+def check_lives(input_lives, input_word, input_choice_index)
+    letters = input_word.split("")
+    match = false
+    letters.each do |letter|
+        if letter == ALPHABET[input_choice_index]
+            match = true
+        end
+    end
+    if !match
+        input_lives -= 1
+    end
+    return input_lives
+end
+
 get "/" do
     if params["reset"] == "true"
         session["word"] = new_word()
-        session["unplayed_letters"] = generate_alphabet
+        session["lives"] = starting_lives
+    session["unplayed_letters"] = generate_alphabet
     end
     if !session["word"]
         session["word"] = new_word()
-        session["unplayed_letters"] = generate_alphabet
-    end
-    if !session["unplayed_letters"]
-        session["unplayed_letters"] = generate_alphabet
+        session["lives"] = starting_lives
+    session["unplayed_letters"] = generate_alphabet
     end
     if params["choice"]
         choice_index = params["choice"].to_i
         session["unplayed_letters"] = remove_choice(session["unplayed_letters"], choice_index)
+        session["lives"] = check_lives(session["lives"], session["word"], choice_index)
     end
     game_string = make_game_string(session["word"], session["unplayed_letters"])
     erb :index, :locals => {:word => session["word"], :unplayed_letters => session["unplayed_letters"], 
-        :alphabet => ALPHABET, :flash_message => flash_message,:game_string => game_string}
+        :alphabet => ALPHABET, :game_string => game_string, :lives => session["lives"]}
 end
