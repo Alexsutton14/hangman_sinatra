@@ -3,22 +3,22 @@
         <title>Hangman</title>
     </head>
     <body>
-        <p>
+        <p class="lives">
         Lives remaining: <%= lives %>
         </p>
-        <div>
+        <div class="game-word">
         <p>
         <%= word %>
         <br>
         <%= game_string %>
         </p>
         </div>
-        <div>
+        <div class="letter-container">
         <% unplayed_letters.each_with_index do|item, index|%>
             <% if item != ""%>
-            <a href="/?choice=<%=index%>"><%= item %></a>
+            <a class="letter-active" href="/?choice=<%=index%>"><%= item %></a>
             <%else%>
-            <a><%=alphabet[index]%></a>
+            <a class="letter-inactive"><%=alphabet[index]%></a>
             <%end%>
         <% end %>
         </div>
