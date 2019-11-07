@@ -6,8 +6,6 @@
     <body>
         <div class="game-word-container">
         <p class="game-word">
-        <%= word %>
-        <br>
         <%= game_string %>
         </p>
         <p class="lives">
@@ -23,8 +21,8 @@
             <%end%>
         <% end %>
         </div>
-        <div class="reset">
-        <a href="/?reset=true">New Game</a>
-        </div>
+        <%# <div class="reset"> %>
+        <a class="reset" href="/?reset=true">New Game</a>
+        <%#</div> %>
     </body>
 </html>
