@@ -1,29 +1,30 @@
 <html>
     <head>
         <title>Hangman</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
-        <p class="lives">
-        Lives remaining: <%= lives %>
-        </p>
-        <div class="game-word">
-        <p>
+        <div class="game-word-container">
+        <p class="game-word">
         <%= word %>
         <br>
         <%= game_string %>
         </p>
+        <p class="lives">
+        Lives remaining: <%= lives %>
+        </p>
         </div>
         <div class="letter-container">
         <% unplayed_letters.each_with_index do|item, index|%>
-            <% if item != ""%>
-            <a class="letter-active" href="/?choice=<%=index%>"><%= item %></a>
+            <% if item != "" && lives > 0%>
+            <a class="letter active" href="/?choice=<%=index%>"><%= item %></a>
             <%else%>
-            <a class="letter-inactive"><%=alphabet[index]%></a>
+            <a class="letter inactive"><%=alphabet[index]%></a>
             <%end%>
         <% end %>
         </div>
-        <div>
-        <a href="/?reset=true">Reset</a>
+        <div class="reset">
+        <a href="/?reset=true">New Game</a>
         </div>
     </body>
 </html>

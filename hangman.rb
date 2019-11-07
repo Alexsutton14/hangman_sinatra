@@ -51,6 +51,9 @@ def make_game_string(input_word, input_unplayed_array)
 end
 
 def check_lives(input_lives, input_word, input_choice_index)
+    if input_lives == 0
+        return 0
+    end
     letters = input_word.split("")
     match = false
     letters.each do |letter|
@@ -68,12 +71,12 @@ get "/" do
     if params["reset"] == "true"
         session["word"] = new_word()
         session["lives"] = starting_lives
-    session["unplayed_letters"] = generate_alphabet
+        session["unplayed_letters"] = generate_alphabet
     end
     if !session["word"]
         session["word"] = new_word()
         session["lives"] = starting_lives
-    session["unplayed_letters"] = generate_alphabet
+        session["unplayed_letters"] = generate_alphabet
     end
     if params["choice"]
         choice_index = params["choice"].to_i
